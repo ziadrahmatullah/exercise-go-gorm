@@ -1,4 +1,4 @@
-CREATE DATABASE pet_database;
+CREATE DATABASE pet_db;
 
 CREATE TABLE owners(
     owner_id bigserial,
