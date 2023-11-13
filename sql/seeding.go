@@ -61,6 +61,6 @@ func Seeding(db *gorm.DB) {
 }
 
 func toDate(dateString string) *time.Time {
-	parsedDate, _ := time.Parse("2006-01-02", dateString)
+	parsedDate, _ := time.Parse(dateString, dateString)
 	return &parsedDate
 }
