@@ -9,9 +9,10 @@ import (
 type Pet struct {
 	PetId         int64          `gorm:"column:pet_id;primaryKey;autoIncrement"`
 	Name          string         `gorm:"column:name"`
-	DateOfBirth   time.Time      `gorm:"column:date_of_birth"`
+	DateOfBirth   *time.Time     `gorm:"column:date_of_birth"`
 	IsAggresive   bool           `gorm:"column:is_aggressive"`
 	PetCategoryId int64          `gorm:"column:pet_category_id"`
+	Owners        []OwnerPet     `gorm:"foreignKey:PetId"`
 	PetCategory   PetCategory    `gorm:"foreignKey:pet_category_id;references:pet_category_id;not null"`
 	CreatedAt     time.Time      `gorm:"autoCreateTime,column:created_at"`
 	UpdatedAt     time.Time      `gorm:"autoCreateTime,column:updated_at"`

@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func Seeding(db *gorm.DB){
+func Seeding(db *gorm.DB) {
 	crud.CreateCategory(db, "Dog")
 	crud.CreateCategory(db, "Cat")
 	var owners = []models.Owner{
@@ -25,39 +25,42 @@ func Seeding(db *gorm.DB){
 		{
 			Name:          "Coco",
 			PetCategoryId: 1,
-			IsAggresive:   false},
+			IsAggresive:   false,
+			DateOfBirth:   nil},
 		{
 			Name:          "Jack",
 			PetCategoryId: 1,
 			IsAggresive:   true,
-			DateOfBirth:   Date(2022, 1, 1)},
+			DateOfBirth:   toDate("2022-01-01")},
 		{
 			Name:          "Max",
 			PetCategoryId: 1,
 			IsAggresive:   true,
-			DateOfBirth:   Date(2023, 1, 2)},
+			DateOfBirth:   toDate("2023-01-02)")},
 		{
 			Name:          "Buddy",
 			PetCategoryId: 2,
 			IsAggresive:   true,
-			DateOfBirth:   Date(2019, 5, 1)},
+			DateOfBirth:   toDate("2019-05-01")},
 		{
 			Name:          "Kitty",
 			PetCategoryId: 2,
-			IsAggresive:   true},
+			IsAggresive:   true,
+			DateOfBirth:   nil},
 	}
 
 	crud.CreatePets(db, pets)
 
 	var ownerPets = []models.OwnerPet{
-		{OwnerId: 1, PetId: 5, StartDate: Date(2023, 1, 1)},
-		{OwnerId: 1, PetId: 4, StartDate: Date(2023, 1, 2)},
-		{OwnerId: 4, PetId: 3, StartDate: Date(2023, 1, 3)},
-		{OwnerId: 3, PetId: 1, StartDate: Date(2023, 1, 4)},
+		{OwnerId: 1, PetId: 5, StartDate: toDate("2023-01-01"), EndDate: nil},
+		{OwnerId: 1, PetId: 4, StartDate: toDate("2023-01-02"), EndDate: nil},
+		{OwnerId: 4, PetId: 3, StartDate: toDate("2023-01-03"), EndDate: nil},
+		{OwnerId: 3, PetId: 1, StartDate: toDate("2023-01-04"), EndDate: nil},
 	}
 	crud.CreateOwnerPets(db, ownerPets)
 }
 
-func Date(year, month, day int) time.Time {
-	return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+func toDate(dateString string) *time.Time {
+	parsedDate, _ := time.Parse("2006-01-02", dateString)
+	return &parsedDate
 }
